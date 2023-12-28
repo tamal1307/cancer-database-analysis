@@ -1,0 +1,13 @@
+codes for icgc file analysis
+
+#split files for each patients
+split -l 56206 paca-au_exp.txt sample
+
+#cut 3rd line containing raw counts and attach into one file
+awk '{a[FNR]=a[FNR]?a[FNR]" "$3:$3}END{for(i=1;i<=length(a);i++)print a[i]}' * > abc
+
+#copy the names of donor from expression matrix and attach as header of new trimmed data (abc)
+
+cut -f1 *.txt | uniq > pq
+
+#copy and paste the pq at the head of abc data
